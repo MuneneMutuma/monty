@@ -66,7 +66,14 @@ void parsefile(char *filename, unsigned int line_number)
 	{
 		tokens = tokenize(&buf);
 		if (tokens[1])
+		{
 			number = atoi(tokens[1]);
+			if (number == 0 && (tokens[1] - '0') != 0)
+			{
+				dprintf(2, "L%d: usage: push integer\n", line_number);
+				exit(EXIT_FAILURE);
+			}
+		}
 		if (tokens[0])
 			operate(tokens[0], number, line_number);
 		line_number++;
