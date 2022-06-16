@@ -13,7 +13,7 @@
 
 
 /**
- * struct stact_s - doubly linked list representation fo a stack (or queue)
+ * struct stack_s - doubly linked list representation fo a stack (or queue)
  * @n: integer
  * @prev: points to the previous element of the stack (or queue)
  * @next: points to the next element of teh stack (or queue)
@@ -25,7 +25,7 @@ typedef struct stack_s
 {
 	int n;
 	struct stack_s *prev;
-	struct stack_s * next;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -55,5 +55,5 @@ void pall(stack_t **stack, unsigned int line_number);
 char **tokenize(char **buf);
 void parsefile(char *filename, unsigned int line_number);
 void operate(char *opcode, int number, unsigned int line_number);
-
+void free_list(char **list);
 #endif /* MONTY_H */

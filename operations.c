@@ -14,9 +14,9 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	if (!head)
 	{
+		free(head);
 		(*stack)->prev = NULL;
 		(*stack)->next = NULL;
-		free(head);
 	}
 	else
 	{

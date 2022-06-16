@@ -24,12 +24,13 @@ int main(int argc, char **argv)
 	unsigned int line_number = 1;
 
 	head = malloc(sizeof(stack_t *));
-	if (head == NULL)
+	if (!head)
 	{
 		dprintf(2, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 
+	head = '\0';
 	if (argc != 2)
 	{
 		dprintf(2, "USAGE: monty file");
@@ -62,10 +63,11 @@ void parsefile(char *filename, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
+	buf = NULL;
 	while (getline(&buf, &bufsize, file) != -1)
 	{
 		tokens = tokenize(&buf);
-		if (tokens[1])
+		if (tokens[1] != NULL)
 		{
 			number = atoi(tokens[1]);
 			if (number == 0 && (tokens[1] - '0') != 0)
