@@ -67,7 +67,8 @@ void parsefile(char *filename, unsigned int line_number)
 		tokens = tokenize(&buf);
 		if (tokens[1])
 			number = atoi(tokens[1]);
-		operate(tokens[0], number, line_number);
+		if (tokens[0])
+			operate(tokens[0], number, line_number);
 		line_number++;
 	}
 }
@@ -127,7 +128,7 @@ char **tokenize(char **buf)
 {
 	int argc = 0;
 	char *token, **line;
-	char *delim = " \n";
+	char *delim = " \n\t";
 
 	line = (char **)malloc((strlen(*buf) + 1) * sizeof(char *));
 	token = NULL;
