@@ -4,7 +4,7 @@
 
 /**
  * push - performs push operation
- * 
+ *
  * @stack: new stack element
  * @line_number: line_number in the file
  *
@@ -29,9 +29,18 @@ void push(stack_t **stack, unsigned int line_number)
 	line_number++;
 }
 
+/**
+ * pall - prints a stack
+ *
+ * @stack: points to stack terminal
+ * @line_number: current line number of instruction
+ *
+ * Return: void
+ */
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *iter;
+
 	iter = *stack;
 	while (iter->prev)
 	{

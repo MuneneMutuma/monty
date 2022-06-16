@@ -53,5 +53,7 @@ extern stack_t *head;
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 char **tokenize(char **buf);
+void parsefile(char *filename, unsigned int line_number);
+void operate(char *opcode, int number, unsigned int line_number);
 
 #endif /* MONTY_H */

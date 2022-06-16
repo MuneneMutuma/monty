@@ -9,55 +9,120 @@
 
 stack_t *head = NULL;
 
+
+/**
+ * main - entry point of the program
+ *
+ * @argc: number of command line arguements
+ * @argv: argument vector
+ *
+ * Return: int
+ */
 int main(int argc, char **argv)
 {
-	int i = 0;
+	char *filename;
 	unsigned int line_number = 1;
-	char *buf, **tokens;
-	size_t bufsize = BUFSIZ;
-	FILE *file;
-	stack_t *element;
 
-	instruction_t opcode[] = {
+	head = malloc(sizeof(stack_t *));
+	if (head == NULL)
+	{
+		dprintf(2, "Error: malloc failed");
+		exit(EXIT_FAILURE);
+	}
+
+	if (argc != 2)
+	{
+		dprintf(2, "USAGE: monty file");
+		exit(EXIT_FAILURE);
+	}
+	filename = argv[1];
+	parsefile(filename, line_number);
+	return (argc);
+}
+
+/**
+ * parsefile - opens file and reads through it
+ *
+ * @filename: filename of file to be opened
+ * @line_number: line number of current instruction
+ *
+ * Return: void
+ */
+void parsefile(char *filename, unsigned int line_number)
+{
+	size_t bufsize = BUFSIZ;
+	char *buf, **tokens;
+	FILE *file;
+	int number;
+
+	file = fopen(filename, "r");
+	if (!file)
+	{
+		dprintf(2, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
+	}
+
+	while (getline(&buf, &bufsize, file) != -1)
+	{
+		tokens = tokenize(&buf);
+		if (tokens[1])
+			number = atoi(tokens[1]);
+		operate(tokens[0], number, line_number);
+		line_number++;
+	}
+}
+
+/**
+ * operate - chooses opcode and operates
+ *
+ * @opcode: opcode to be implemented
+ * @number: value to be implemented
+ * @line_number: number of line with the current instruction
+ *
+ * Return: int: void
+ */
+void operate(char *opcode, int number, unsigned int line_number)
+{
+	int i, flag = 0;
+	instruction_t map[] = {
 		{"push", push},
 		{"pall", pall},
 		{NULL, NULL}
 	};
+	stack_t *element;
 
-	head = malloc(sizeof(stack_t));
-	if (argc != 2)
+	element = malloc(sizeof(stack_t));
+	if (element == NULL)
 	{
-		dprintf(STDERR_FILENO, "USAGE: monty file\n");
+		dprintf(2, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
-
-	file = fopen(argv[1], "r");
-	if (!file)
-		exit(errno);
-
-	while(getline(&buf, &bufsize, file) != -1)
+	element->n = number;
+	for (i = 0; map[i].opcode != NULL; i++)
 	{
-		element = (stack_t *)malloc(sizeof(stack_t));
-		element->n = 98;
-		tokens = tokenize(&buf);
-		for (i = 0; opcode[i].opcode != NULL; i++)
+		if (strcmp(opcode, map[i].opcode) == 0)
 		{
-			if (strcmp(opcode[i].opcode, tokens[0]) == 0)
-			{
-				if (strcmp(tokens[0], "push") == 0)
-					element->n = atoi(tokens[1]);
-				if (strcmp(tokens[0], "pall") == 0)
-				{
-					element = head;
-				}
-				opcode[i].f(&element, line_number);
-			}
+			if (strcmp(opcode, "pall") == 0)
+				element = head;
+			map[i].f(&element, line_number);
+			flag = 1;
 		}
-		free(tokens);
 	}
-	return (0);
+
+	if (flag == 0)
+	{
+		dprintf(2, "L%u: unkown instruction %s\n", line_number, opcode);
+		exit(EXIT_FAILURE);
+	}
 }
 
+/**
+ * tokenize - makes tokens
+ *
+ * @buf: buffer to make tokens
+ *
+ * Return: a list of string tokens
+ */
 char **tokenize(char **buf)
 {
 	int argc = 0;
