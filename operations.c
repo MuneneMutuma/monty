@@ -90,3 +90,29 @@ void pop(stack_t **stack, unsigned int line_number)
 	free(head->next);
 	head->next = NULL;
 }
+
+/**
+ * swap - swaps topmost elements in stack
+ *
+ * @stack: points to top of stack
+ * @line_number: line number of the present command
+ *
+ * Return: void
+ */
+void swap(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (!(*stack)->prev)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	tmp = (*stack)->prev;
+	(*stack)->prev = tmp->prev;
+	(*stack)->next = tmp;
+	tmp->next = NULL;
+	tmp->prev = *stack;
+	head = tmp;
+}

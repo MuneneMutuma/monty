@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 	}
 	filename = argv[1];
 	parsefile(filename, line_number);
-	free_stack(&head);
+	free_stack(head);
 	return (argc);
 }
 
@@ -102,6 +102,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
 	stack_t *element;

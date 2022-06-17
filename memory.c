@@ -8,16 +8,16 @@
  *
  * Return: void
  */
-void free_stack(stack_t **head)
+void free_stack(stack_t *head)
 {
 	stack_t *iter;
 
-	iter = *head;
+	iter = head;
 	while (iter != NULL)
 	{
-		*head = iter->prev;
+		head = iter->prev;
 		free(iter);
-		iter = *head;
+		iter = head;
 	}
 	free(iter);
 }
