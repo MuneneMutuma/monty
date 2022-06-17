@@ -55,5 +55,5 @@ void pall(stack_t **stack, unsigned int line_number);
 char **tokenize(char **buf);
 void parsefile(char *filename, unsigned int line_number);
 void operate(char *opcode, int number, unsigned int line_number);
-void free_list(char **list);
+void free_stack(stack_t **head);
 #endif /* MONTY_H */

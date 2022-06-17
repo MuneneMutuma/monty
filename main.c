@@ -26,18 +26,18 @@ int main(int argc, char **argv)
 	head = malloc(sizeof(stack_t *));
 	if (!head)
 	{
-		dprintf(2, "Error: malloc failed");
+		fprintf(stdout, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 
-	head = '\0';
 	if (argc != 2)
 	{
-		dprintf(2, "USAGE: monty file");
+		fprintf(stdout, "USAGE: monty file");
 		exit(EXIT_FAILURE);
 	}
 	filename = argv[1];
 	parsefile(filename, line_number);
+	free_stack(&head);
 	return (argc);
 }
 
@@ -59,7 +59,7 @@ void parsefile(char *filename, unsigned int line_number)
 	file = fopen(filename, "r");
 	if (!file)
 	{
-		dprintf(2, "Error: Can't open file %s\n", filename);
+		fprintf(stdout, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
@@ -72,14 +72,17 @@ void parsefile(char *filename, unsigned int line_number)
 			number = atoi(tokens[1]);
 			if (number == 0 && (tokens[1] - '0') != 0)
 			{
-				dprintf(2, "L%d: usage: push integer\n", line_number);
+				fprintf(stdout, "L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 			}
 		}
 		if (tokens[0])
 			operate(tokens[0], number, line_number);
 		line_number++;
+		free(tokens);
 	}
+	free(buf);
+	fclose(file);
 }
 
 /**
@@ -104,7 +107,8 @@ void operate(char *opcode, int number, unsigned int line_number)
 	element = malloc(sizeof(stack_t));
 	if (element == NULL)
 	{
-		dprintf(2, "Error: malloc failed");
+		free(element);
+		fprintf(stdout, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 	element->n = number;
@@ -113,7 +117,10 @@ void operate(char *opcode, int number, unsigned int line_number)
 		if (strcmp(opcode, map[i].opcode) == 0)
 		{
 			if (strcmp(opcode, "pall") == 0)
+			{
+				free(element);
 				element = head;
+			}
 			map[i].f(&element, line_number);
 			flag = 1;
 		}
@@ -121,7 +128,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 
 	if (flag == 0)
 	{
-		dprintf(2, "L%u: unkown instruction %s\n", line_number, opcode);
+		fprintf(stdout, "L%u: unkown instruction %s\n", line_number, opcode);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -140,6 +147,11 @@ char **tokenize(char **buf)
 	char *delim = " \n\t";
 
 	line = (char **)malloc((strlen(*buf) + 1) * sizeof(char *));
+	if (!line)
+	{
+		fprintf(stdout, "Error: malloc failed");
+		exit(EXIT_FAILURE);
+	}
 	token = NULL;
 
 	token = strtok(*buf, delim);
