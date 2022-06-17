@@ -101,6 +101,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 		{NULL, NULL}
 	};
 	stack_t *element;
@@ -117,7 +118,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 	{
 		if (strcmp(opcode, map[i].opcode) == 0)
 		{
-			if (i == 1 || i == 2)
+			if (i != 0)
 			{
 				free(element);
 				element = head;

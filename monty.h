@@ -57,4 +57,5 @@ void parsefile(char *filename, unsigned int line_number);
 void operate(char *opcode, int number, unsigned int line_number);
 void free_stack(stack_t **head);
 void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
 #endif /* MONTY_H */

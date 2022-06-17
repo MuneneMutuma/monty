@@ -9,4 +9,7 @@ push         9
 pint  
        push         -1;
      pall      
+pop
+pop
+pop
 pall    
