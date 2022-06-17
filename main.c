@@ -26,13 +26,13 @@ int main(int argc, char **argv)
 	head = malloc(sizeof(stack_t *));
 	if (!head)
 	{
-		fprintf(stdout, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 
 	if (argc != 2)
 	{
-		fprintf(stdout, "USAGE: monty file");
+		fprintf(stderr, "USAGE: monty file");
 		exit(EXIT_FAILURE);
 	}
 	filename = argv[1];
@@ -59,7 +59,7 @@ void parsefile(char *filename, unsigned int line_number)
 	file = fopen(filename, "r");
 	if (!file)
 	{
-		fprintf(stdout, "Error: Can't open file %s\n", filename);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
@@ -72,7 +72,7 @@ void parsefile(char *filename, unsigned int line_number)
 			number = atoi(tokens[1]);
 			if (number == 0 && (tokens[1] - '0') != 0)
 			{
-				fprintf(stdout, "L%d: usage: push integer\n", line_number);
+				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -108,7 +108,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 	if (element == NULL)
 	{
 		free(element);
-		fprintf(stdout, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 	element->n = number;
@@ -128,7 +128,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 
 	if (flag == 0)
 	{
-		fprintf(stdout, "L%u: unkown instruction %s\n", line_number, opcode);
+		fprintf(stderr, "L%u: unkown instruction %s\n", line_number, opcode);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -149,7 +149,7 @@ char **tokenize(char **buf)
 	line = (char **)malloc((strlen(*buf) + 1) * sizeof(char *));
 	if (!line)
 	{
-		fprintf(stdout, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 	token = NULL;
