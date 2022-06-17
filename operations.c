@@ -49,3 +49,23 @@ void pall(stack_t **stack, unsigned int line_number)
 	}
 	line_number++;
 }
+
+/**
+ * pint - prints integer at top of stack
+ *
+ * @stack: pointer to top of stack
+ * @line_number: number of line of the present command
+ *
+ * Return: void
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+	if (!*stack)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	printf("%d\n", (*stack)->n);
+	line_number++;
+}

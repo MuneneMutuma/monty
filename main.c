@@ -100,6 +100,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 	instruction_t map[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
 	stack_t *element;
@@ -116,7 +117,7 @@ void operate(char *opcode, int number, unsigned int line_number)
 	{
 		if (strcmp(opcode, map[i].opcode) == 0)
 		{
-			if (strcmp(opcode, "pall") == 0)
+			if (i == 1 || i == 2)
 			{
 				free(element);
 				element = head;
