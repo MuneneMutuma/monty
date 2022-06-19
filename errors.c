@@ -4,12 +4,22 @@
 /**
  * push_int_error - error handler for push
  *
- * @line_number: current line number of opcode
+ * Return: void
+ */
+void push_int_error(void)
+{
+	fprintf(stderr, "L:%d usage: push integer\n", obj->line_number);
+	exit(EXIT_FAILURE);
+}
+
+
+/**
+ * malloc_error - handles malloc error
  *
  * Return: void
  */
-void push_int_error(unsigned int line_number)
+void malloc_error(void)
 {
-	fprintf(stderr, "L:%d usage: push integer\n", line_number);
+	fprintf(stderr, "Error: malloc failed\n");
 	exit(EXIT_FAILURE);
 }

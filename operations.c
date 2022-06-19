@@ -6,38 +6,36 @@
  * push - performs push operation
  *
  * @stack: new stack element
- * @line_number: line_number in the file
  *
  * Return: void always
  */
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack)
 {
-	if (!head)
+	if (!obj->head)
 	{
-		free(head);
+		free(obj->head);
 		(*stack)->prev = NULL;
 		(*stack)->next = NULL;
 	}
 	else
 	{
-		(*stack)->prev = head;
+		(*stack)->prev = obj->head;
 		(*stack)->next = NULL;
-		head->next = *stack;
+		obj->head->next = *stack;
 	}
 
-	head = *stack;
-	line_number++;
+	obj->head = *stack;
+	obj->nodes++;
 }
 
 /**
  * pall - prints a stack
  *
  * @stack: points to stack terminal
- * @line_number: current line number of instruction
  *
  * Return: void
  */
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack)
 {
 	stack_t *iter;
 
@@ -47,65 +45,61 @@ void pall(stack_t **stack, unsigned int line_number)
 		printf("%d\n", iter->n);
 		iter = iter->prev;
 	}
-	line_number++;
 }
 
 /**
  * pint - prints integer at top of stack
  *
  * @stack: pointer to top of stack
- * @line_number: number of line of the present command
  *
  * Return: void
  */
-void pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack)
 {
-	if (!*stack)
+	if (obj->nodes == 0)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", obj->line_number);
 		exit(EXIT_FAILURE);
 	}
 
 	printf("%d\n", (*stack)->n);
-	line_number++;
 }
 
 /**
  * pop - removes top element of stack
  *
  * @stack: points to stack
- * @line_number: line number of the present command
  *
  * Return: void
  */
-void pop(stack_t **stack, unsigned int line_number)
+void pop(stack_t **stack)
 {
-	if (!(*stack)->next)
+	if (obj->nodes == 0)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", obj->line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	head = head->prev;
-	free(head->next);
-	head->next = NULL;
+	(*stack) = (*stack)->prev;
+	free((*stack)->next);
+	(*stack)->next = NULL;
+	obj->nodes--;
 }
 
 /**
  * swap - swaps topmost elements in stack
  *
  * @stack: points to top of stack
- * @line_number: line number of the present command
  *
  * Return: void
  */
-void swap(stack_t **stack, unsigned int line_number)
+void swap(stack_t **stack)
 {
 	stack_t *tmp;
 
-	if (!(*stack)->prev)
+	if (obj->nodes < 2)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short", line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short", obj->line_number);
 		exit(EXIT_FAILURE);
 	}
 
@@ -114,5 +108,5 @@ void swap(stack_t **stack, unsigned int line_number)
 	(*stack)->next = tmp;
 	tmp->next = NULL;
 	tmp->prev = *stack;
-	head = tmp;
+	*stack = tmp;
 }

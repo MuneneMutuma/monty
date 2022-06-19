@@ -1,4 +1,4 @@
-push 2
+push 1
 pint
 pop
 push 2

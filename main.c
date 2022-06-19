@@ -7,7 +7,7 @@
 #include "monty.h"
 
 
-stack_t *head = NULL;
+handler_t *obj = NULL;
 
 
 /**
@@ -21,23 +21,17 @@ stack_t *head = NULL;
 int main(int argc, char **argv)
 {
 	char *filename;
-	unsigned int line_number = 1;
-
-	head = malloc(sizeof(stack_t *));
-	if (!head)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
+
+	init();
 	filename = argv[1];
-	parsefile(filename, line_number);
-	free_stack(head);
+	parsefile(filename);
+	free_obj();
 	return (argc);
 }
 
@@ -45,11 +39,10 @@ int main(int argc, char **argv)
  * parsefile - opens file and reads through it
  *
  * @filename: filename of file to be opened
- * @line_number: line number of current instruction
  *
  * Return: void
  */
-void parsefile(char *filename, unsigned int line_number)
+void parsefile(char *filename)
 {
 	size_t bufsize = BUFSIZ;
 	char *buf, **tokens;
@@ -69,18 +62,16 @@ void parsefile(char *filename, unsigned int line_number)
 		tokens = tokenize(&buf);
 		if (!*tokens)
 		{
-			line_number++;
+			obj->line_number++;
 			continue;
 		}
 		if (tokens[1] != NULL)
-		{
-			number = _atoi(tokens[1], line_number);
-		}
+			number = _atoi(tokens[1], obj->line_number);
 		if (strcmp(tokens[0], "push") == 0 && tokens[1] == NULL)
-			push_int_error(line_number);
+			push_int_error();
 		if (tokens[0])
-			operate(tokens[0], number, line_number);
-		line_number++;
+			operate(tokens[0], number);
+		obj->line_number++;
 		free(tokens);
 	}
 	free(buf);
@@ -92,11 +83,10 @@ void parsefile(char *filename, unsigned int line_number)
  *
  * @opcode: opcode to be implemented
  * @number: value to be implemented
- * @line_number: number of line with the current instruction
  *
  * Return: int: void
  */
-void operate(char *opcode, int number, unsigned int line_number)
+void operate(char *opcode, int number)
 {
 	int i, flag = 0;
 	instruction_t map[] = {
@@ -113,27 +103,24 @@ void operate(char *opcode, int number, unsigned int line_number)
 	if (element == NULL)
 	{
 		free(element);
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		malloc_error();
 	}
 	element->n = number;
 	for (i = 0; map[i].opcode != NULL; i++)
 	{
 		if (strcmp(opcode, map[i].opcode) == 0)
 		{
-			if (i != 0)
-			{
-				free(element);
-				element = head;
-			}
-			map[i].f(&element, line_number);
+			if (i == 0)
+				map[i].f(&element);
+			else
+				map[i].f(&(obj->head));
 			flag = 1;
 		}
 	}
 
 	if (flag == 0)
 	{
-		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+		fprintf(stderr, "L%u: unknown instruction %s\n", obj->line_number, opcode);
 		exit(EXIT_FAILURE);
 	}
 }

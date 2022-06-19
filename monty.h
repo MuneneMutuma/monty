@@ -39,27 +39,39 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+	void (*f)(stack_t **stack);
 } instruction_t;
 
 
 
+typedef struct handler_s
+{
+	stack_t *head;
+	unsigned int line_number;
+	unsigned int nodes;
+} handler_t;
+
+
+
 /* VARIABLES */
-extern stack_t *head;
+extern handler_t *obj;
 
 
 
 /* FUNCTIONS */
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
+void push(stack_t **stack);
+void pall(stack_t **stack);
 char **tokenize(char **buf);
-void parsefile(char *filename, unsigned int line_number);
-void operate(char *opcode, int number, unsigned int line_number);
+void parsefile(char *filename);
+void operate(char *opcode, int number);
 void free_stack(stack_t *head);
-void pint(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_number);
-void swap(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack);
+void pop(stack_t **stack);
+void swap(stack_t **stack);
 int _atoi(char *str, unsigned int line_number);
-void push_int_error(unsigned int line_number);
+void push_int_error(void);
+void malloc_error(void);
+void init(void);
+void free_obj(void);
 
 #endif /* MONTY_H */
