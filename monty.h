@@ -60,5 +60,6 @@ void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 int _atoi(char *str, unsigned int line_number);
+void push_int_error(unsigned int line_number);
 
 #endif /* MONTY_H */

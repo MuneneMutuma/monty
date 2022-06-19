@@ -67,10 +67,17 @@ void parsefile(char *filename, unsigned int line_number)
 	while (getline(&buf, &bufsize, file) != -1)
 	{
 		tokens = tokenize(&buf);
+		if (!*tokens)
+		{
+			line_number++;
+			continue;
+		}
 		if (tokens[1] != NULL)
 		{
 			number = _atoi(tokens[1], line_number);
 		}
+		if (strcmp(tokens[0], "push") == 0 && tokens[1] == NULL)
+			push_int_error(line_number);
 		if (tokens[0])
 			operate(tokens[0], number, line_number);
 		line_number++;
