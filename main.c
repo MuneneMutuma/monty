@@ -65,10 +65,13 @@ void parsefile(char *filename)
 			obj->line_number++;
 			continue;
 		}
-		if (tokens[1] != NULL)
-			number = _atoi(tokens[1], obj->line_number);
-		if (strcmp(tokens[0], "push") == 0 && tokens[1] == NULL)
-			push_int_error();
+		if (strcmp(tokens[0], "push") == 0)
+		{
+			if (tokens[1] != NULL)
+				number = _atoi(tokens[1], obj->line_number);
+			else
+				push_int_error();
+		}
 		if (tokens[0])
 			operate(tokens[0], number);
 		obj->line_number++;
