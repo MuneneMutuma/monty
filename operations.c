@@ -40,10 +40,13 @@ void pall(stack_t **stack)
 	stack_t *iter;
 
 	iter = *stack;
-	while (iter->prev)
+	if (obj->nodes > 0)
 	{
-		printf("%d\n", iter->n);
-		iter = iter->prev;
+		while (iter->prev)
+		{
+			printf("%d\n", iter->n);
+			iter = iter->prev;
+		}
 	}
 }
 

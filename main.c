@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	filename = argv[1];
 	parsefile(filename);
 	free_obj();
-	return (argc);
+	return (0);
 }
 
 /**
