@@ -102,7 +102,7 @@ void swap(stack_t **stack)
 
 	if (obj->nodes < 2)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short", obj->line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", obj->line_number);
 		exit(EXIT_FAILURE);
 	}
 
