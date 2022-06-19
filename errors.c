@@ -24,6 +24,11 @@ void malloc_error(void)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * add_error - error handler for add
+ *
+ * Return: void
+ */
 void add_error(void)
 {
 	fprintf(stderr, "L%d: can't add, stack too short\n", obj->line_number);

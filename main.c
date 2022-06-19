@@ -120,6 +120,11 @@ void operate(char *opcode, int number)
 				map[i].f(&(obj->head));
 			flag = 1;
 		}
+		if (strcmp(opcode, "nop") == 0)
+		{
+			flag = 2;
+			break;
+		}
 	}
 
 	if (flag == 0)
