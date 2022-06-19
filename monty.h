@@ -58,19 +58,32 @@ extern handler_t *obj;
 
 
 
-/* FUNCTIONS */
-void push(stack_t **stack);
-void pall(stack_t **stack);
+/*------- FUNCTIONS ------*/
+/* main.c */
 char **tokenize(char **buf);
 void parsefile(char *filename);
 void operate(char *opcode, int number);
 void free_stack(stack_t *head);
+
+/* operations.c */
+void push(stack_t **stack);
+void pall(stack_t **stack);
 void pint(stack_t **stack);
 void pop(stack_t **stack);
 void swap(stack_t **stack);
+
+/* operations2.c */
+void add(stack_t **stack);
+
+/* _atoi.c */
 int _atoi(char *str, unsigned int line_number);
+
+/* errors.c */
 void push_int_error(void);
 void malloc_error(void);
+void add_error(void);
+
+/* init.c */
 void init(void);
 void free_obj(void);
 

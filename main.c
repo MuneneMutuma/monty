@@ -98,6 +98,7 @@ void operate(char *opcode, int number)
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
+		{"add", add},
 		{NULL, NULL}
 	};
 	stack_t *element;

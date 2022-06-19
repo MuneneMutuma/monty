@@ -23,3 +23,9 @@ void malloc_error(void)
 	fprintf(stderr, "Error: malloc failed\n");
 	exit(EXIT_FAILURE);
 }
+
+void add_error(void)
+{
+	fprintf(stderr, "L%d: can't add, stack too short\n", obj->line_number);
+	exit(EXIT_FAILURE);
+}
