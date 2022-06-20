@@ -10,7 +10,7 @@
 void add(stack_t **stack)
 {
 	if (obj->nodes < 2)
-		add_error();
+		stack_len_error("add");
 
 	(*stack)->prev->n += (*stack)->n;
 	pop(stack);
@@ -26,7 +26,26 @@ void add(stack_t **stack)
 void sub(stack_t **stack)
 {
 	if (obj->nodes < 2)
-		sub_error();
+		stack_len_error("sub");
+
 	(*stack)->prev->n -= (*stack)->n;
+	pop(stack);
+}
+
+/**
+ * div - divides two topmost elements in stack
+ *
+ * @stack: head of stack
+ *
+ * Return: void
+ */
+void div(stack_t **stack)
+{
+	if (obj->nodes < 2)
+		stack_len_error("div");
+	if ((*stack)->n == 0)
+		div_by_zero();
+
+	(*stack)->prev->n /= (*stack)->n;
 	pop(stack);
 }

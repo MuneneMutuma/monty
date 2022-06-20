@@ -75,6 +75,7 @@ void swap(stack_t **stack);
 /* operations2.c */
 void add(stack_t **stack);
 void sub(stack_t **stack);
+void div(stack_t **stack);
 
 /* _atoi.c */
 int _atoi(char *str, unsigned int line_number);
@@ -82,9 +83,9 @@ int _atoi(char *str, unsigned int line_number);
 /* errors.c */
 void push_int_error(void);
 void malloc_error(void);
-void add_error(void);
 void no_opcode_error(char **opcode);
-void sub_error(void);
+void stack_len_error(char *opcode);
+void div_by_zero(void);
 
 /* errors2.c */
 

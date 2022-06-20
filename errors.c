@@ -25,13 +25,15 @@ void malloc_error(void)
 }
 
 /**
- * add_error - error handler for add
+ * stack_len_error - error handler for short stack
+ *
+ * @opcode: opcode with the error
  *
  * Return: void
  */
-void add_error(void)
+void stack_len_error(char *opcode)
 {
-	fprintf(stderr, "L%d: can't add, stack too short\n", obj->line_number);
+	fprintf(stderr, "L%d: can't %s, stack too short\n", obj->line_number, opcode);
 	exit(EXIT_FAILURE);
 }
 
@@ -50,12 +52,12 @@ void no_opcode_error(char **opcode)
 }
 
 /**
- * sub_error - error handler for sub
+ * div_by_zero - error handler for division by zero
  *
- * RETURN: void
+ * Return: void
  */
-void sub_error(void)
+void div_by_zero(void)
 {
-	fprintf(stderr, "L%u: can't sub, stack too short\n", obj->line_number);
+	fprintf(stderr, "L%u: division by zero\n", obj->line_number);
 	exit(EXIT_FAILURE);
 }
