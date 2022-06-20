@@ -95,7 +95,7 @@ void operate(char *opcode, int number)
 	instruction_t map;
 	stack_t *element;
 
-	if (strcmp(opcode, "nop"))
+	if (strcmp(opcode, "nop") == 0)
 		return;
 	map = opcode_selector(&opcode);
 	if (map.opcode == NULL)
