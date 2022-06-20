@@ -63,6 +63,7 @@ void parsefile(char *filename)
 		if (!*tokens)
 		{
 			obj->line_number++;
+			free(tokens);
 			continue;
 		}
 		if (strcmp(tokens[0], "push") == 0)
