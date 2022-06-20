@@ -8,7 +8,7 @@
  */
 void push_int_error(void)
 {
-	fprintf(stderr, "L:%d usage: push integer\n", obj->line_number);
+	fprintf(stderr, "L%d: usage: push integer\n", obj->line_number);
 	exit(EXIT_FAILURE);
 }
 
