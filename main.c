@@ -105,10 +105,7 @@ void operate(char *opcode, int number)
 
 	element = malloc(sizeof(stack_t));
 	if (element == NULL)
-	{
-		free(element);
 		malloc_error();
-	}
 	element->n = number;
 	for (i = 0; map[i].opcode != NULL; i++)
 	{
@@ -117,13 +114,11 @@ void operate(char *opcode, int number)
 			if (i == 0)
 				map[i].f(&element);
 			else
+			{
+				free(element);
 				map[i].f(&(obj->head));
+			}
 			flag = 1;
-		}
-		if (strcmp(opcode, "nop") == 0)
-		{
-			flag = 2;
-			break;
 		}
 	}
 

@@ -28,6 +28,16 @@ void init(void)
  */
 void free_obj(void)
 {
-	free(obj->head);
+	stack_t *iter;
+
+	iter = obj->head;
+
+	while (iter->prev)
+	{
+		obj->head = iter->prev;
+		free(iter);
+		iter = obj->head;
+	}
+	free(iter);
 	free(obj);
 }
