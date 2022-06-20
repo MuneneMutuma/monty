@@ -48,3 +48,14 @@ void no_opcode_error(char **opcode)
 	fprintf(stderr, "L%u: unknown instruction %s\n", obj->line_number, *opcode);
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * sub_error - error handler for sub
+ *
+ * RETURN: void
+ */
+void sub_error(void)
+{
+	fprintf(stderr, "L%u: can't sub, stack too short\n", obj->line_number);
+	exit(EXIT_FAILURE);
+}
