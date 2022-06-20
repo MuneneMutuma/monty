@@ -33,13 +33,13 @@ void sub(stack_t **stack)
 }
 
 /**
- * div - divides two topmost elements in stack
+ * divide - divides two topmost elements in stack
  *
  * @stack: head of stack
  *
  * Return: void
  */
-void div(stack_t **stack)
+void divide(stack_t **stack)
 {
 	if (obj->nodes < 2)
 		stack_len_error("div");
