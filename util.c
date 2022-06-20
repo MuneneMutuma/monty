@@ -20,6 +20,7 @@ instruction_t opcode_selector(char **opcode)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+		{"sub", sub},
 		{NULL, NULL}
 	};
 
