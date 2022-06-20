@@ -86,7 +86,6 @@ void pop(stack_t **stack)
 	(*stack) = (*stack)->prev;
 	free((*stack)->next);
 	(*stack)->next = NULL;
-	printf("pop says head=%d\n", obj->head->n);
 	obj->nodes--;
 }
 
