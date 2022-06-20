@@ -21,7 +21,6 @@ instruction_t opcode_selector(char **opcode)
 		{"swap", swap},
 		{"add", add},
 		{"sub", sub},
-		{"nop", nop},
 		{NULL, NULL}
 	};
 
