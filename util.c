@@ -23,6 +23,7 @@ instruction_t opcode_selector(char **opcode)
 		{"sub", sub},
 		{"div", divide},
 		{"mul", multiply},
+		{"mod", modulus},
 		{NULL, NULL}
 	};
 

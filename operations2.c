@@ -65,3 +65,21 @@ void multiply(stack_t **stack)
 	(*stack)->prev->n *= (*stack)->n;
 	pop(stack);
 }
+
+/**
+ * modulus - finds modulo two topmost elements in stack
+ *
+ * @stack: head of stack
+ *
+ * Return: void
+ */
+void modulus(stack_t **stack)
+{
+	if (obj->nodes < 2)
+		stack_len_error("mod");
+	if ((*stack)->n == 0)
+		div_by_zero();
+
+	(*stack)->prev->n %= (*stack)->n;
+	pop(stack);
+}
