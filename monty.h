@@ -76,6 +76,7 @@ void swap(stack_t **stack);
 void add(stack_t **stack);
 void sub(stack_t **stack);
 void divide(stack_t **stack);
+void multiply(stack_t **stack);
 
 /* _atoi.c */
 int _atoi(char *str, unsigned int line_number);

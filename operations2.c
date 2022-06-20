@@ -49,3 +49,19 @@ void divide(stack_t **stack)
 	(*stack)->prev->n /= (*stack)->n;
 	pop(stack);
 }
+
+/**
+ * multiply - multiplies two topmost elements in stack
+ *
+ * @stack: head of stack
+ *
+ * Return: void
+ */
+void multiply(stack_t **stack)
+{
+	if (obj->nodes < 2)
+		stack_len_error("mul");
+
+	(*stack)->prev->n *= (*stack)->n;
+	pop(stack);
+}
