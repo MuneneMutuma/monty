@@ -9,18 +9,20 @@
  */
 void init(void)
 {
+	stack_t *head;
+
 	obj = malloc(sizeof(handler_t));
 	if (!obj)
 		malloc_error();
 
-	obj->head = malloc(sizeof(stack_t));
-	if (!(obj->head))
+	head = malloc(sizeof(stack_t));
+	if (!head)
 		malloc_error();
 
+	obj->head = head;
 	obj->line_number = 1;
 	obj->nodes = 0;
 }
-
 /**
  * free_obj - free obj handler
  *

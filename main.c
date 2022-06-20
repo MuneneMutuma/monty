@@ -91,41 +91,23 @@ void parsefile(char *filename)
  */
 void operate(char *opcode, int number)
 {
-	int i, flag = 0;
-	instruction_t map[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{NULL, NULL}
-	};
+	instruction_t map;
 	stack_t *element;
 
 	element = malloc(sizeof(stack_t));
 	if (element == NULL)
 		malloc_error();
 	element->n = number;
-	for (i = 0; map[i].opcode != NULL; i++)
-	{
-		if (strcmp(opcode, map[i].opcode) == 0)
-		{
-			if (i == 0)
-				map[i].f(&element);
-			else
-			{
-				free(element);
-				map[i].f(&(obj->head));
-			}
-			flag = 1;
-		}
-	}
 
-	if (flag == 0)
+	map = opcode_selector(&opcode);
+	if (map.opcode == NULL)
+		no_opcode_error(&opcode);
+	if (strcmp(map.opcode, "push") == 0)
+		map.f(&element);
+	else
 	{
-		fprintf(stderr, "L%u: unknown instruction %s\n", obj->line_number, opcode);
-		exit(EXIT_FAILURE);
+		free(element);
+		map.f(&(obj->head));
 	}
 }
 

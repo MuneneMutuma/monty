@@ -82,9 +82,13 @@ int _atoi(char *str, unsigned int line_number);
 void push_int_error(void);
 void malloc_error(void);
 void add_error(void);
+void no_opcode_error(char **opcode);
 
 /* init.c */
 void init(void);
 void free_obj(void);
+
+/* util.c */
+instruction_t opcode_selector(char **opcode);
 
 #endif /* MONTY_H */

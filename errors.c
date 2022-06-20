@@ -34,3 +34,17 @@ void add_error(void)
 	fprintf(stderr, "L%d: can't add, stack too short\n", obj->line_number);
 	exit(EXIT_FAILURE);
 }
+
+
+/**
+ * no_opcode_error - error handler for invalide opcode
+ *
+ * @opcode: invalid opcode
+ *
+ * Return: void
+ */
+void no_opcode_error(char **opcode)
+{
+	fprintf(stderr, "L%u: unknown instruction %s\n", obj->line_number, *opcode);
+	exit(EXIT_FAILURE);
+}
