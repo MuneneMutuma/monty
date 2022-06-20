@@ -86,6 +86,7 @@ void pop(stack_t **stack)
 	(*stack) = (*stack)->prev;
 	free((*stack)->next);
 	(*stack)->next = NULL;
+	printf("pop says head=%d\n", obj->head->n);
 	obj->nodes--;
 }
 
@@ -98,7 +99,7 @@ void pop(stack_t **stack)
  */
 void swap(stack_t **stack)
 {
-	stack_t *tmp;
+	int n;
 
 	if (obj->nodes < 2)
 	{
@@ -106,10 +107,7 @@ void swap(stack_t **stack)
 		exit(EXIT_FAILURE);
 	}
 
-	tmp = (*stack)->prev;
-	(*stack)->prev = tmp->prev;
-	(*stack)->next = tmp;
-	tmp->next = NULL;
-	tmp->prev = *stack;
-	*stack = tmp;
+	n = (*stack)->n;
+	(*stack)->n = (*stack)->prev->n;
+	(*stack)->prev->n = n;
 }

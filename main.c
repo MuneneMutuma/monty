@@ -95,21 +95,20 @@ void operate(char *opcode, int number)
 	instruction_t map;
 	stack_t *element;
 
-	element = malloc(sizeof(stack_t));
-	if (element == NULL)
-		malloc_error();
-	element->n = number;
-
 	map = opcode_selector(&opcode);
 	if (map.opcode == NULL)
 		no_opcode_error(&opcode);
 	if (strcmp(map.opcode, "push") == 0)
-		map.f(&element);
-	else
 	{
-		free(element);
-		map.f(&(obj->head));
+		element = malloc(sizeof(stack_t));
+		if (element == NULL)
+			malloc_error();
+
+		element->n = number;
+		map.f(&element);
 	}
+	else
+		map.f(&(obj->head));
 }
 
 /**
